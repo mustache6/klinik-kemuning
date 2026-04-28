@@ -32,9 +32,9 @@ router.post("/login", (req, res) => {
   db.query(sql, [username], (err, results) => {
 
     if (err) {
-      console.log(err);
-      return res.send("Terjadi error server");
-    }
+  console.log("ERROR DB:", err);
+  return res.send(err.message);
+}
 
     // jika user tidak ditemukan
     if (results.length === 0) {
