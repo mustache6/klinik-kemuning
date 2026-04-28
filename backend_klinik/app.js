@@ -22,7 +22,7 @@ app.use(express.json());
 
 
 // ==========================
-// STATIC FILE (PENTING UNTUK LOGO)
+// STATIC FILE
 // ==========================
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -32,9 +32,9 @@ app.use(express.static(path.join(__dirname, "public")));
 // ==========================
 app.use(
   session({
-    secret: "klinik-kemuning-secret",
+    secret: process.env.SESSION_SECRET || "klinik-secret",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
   })
 );
 
@@ -62,24 +62,34 @@ app.use("/rekammedis", rekamMedisRoutes);
 
 
 // ==========================
-// DASHBOARD (HALAMAN UTAMA)
+// DASHBOARD
 // ==========================
 app.get("/", (req, res) => {
-
-  // cek login
   if (!req.session.user) {
     return res.redirect("/auth/login");
   }
 
   res.render("admin_dashboard", {
-    user: req.session.user
+    user: req.session.user,
   });
-
 });
 
 
 // ==========================
-// HANDLE ERROR 404
+// ERROR HANDLER (PENTING BANGET)
+// ==========================
+app.use((err, req, res, next) => {
+  console.error("🔥 ERROR:", err.stack);
+
+  res.status(500).send(`
+    <h1>Internal Server Error</h1>
+    <pre>${err.message}</pre>
+  `);
+});
+
+
+// ==========================
+// HANDLE 404
 // ==========================
 app.use((req, res) => {
   res.status(404).send("404 - Halaman tidak ditemukan");
@@ -87,7 +97,7 @@ app.use((req, res) => {
 
 
 // ==========================
-// JALANKAN SERVER
+// RUN SERVER
 // ==========================
 const PORT = process.env.PORT || 5000;
 
