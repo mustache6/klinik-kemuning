@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Rekam Medis</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f4f6f9;
+    }
+
+    .card {
+      border-radius: 15px;
+    }
+
+    .table thead {
+      background-color: #ffc107;
+      color: black;
+    }
+
+    .btn-custom {
+      border-radius: 20px;
+      padding: 5px 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+  <div class="card shadow p-4">
+
+    <h3 class="mb-4 text-center">Data Rekam Medis</h3>
+
+    <a href="/rekammedis/tambah" class="btn btn-success mb-3">
+      + Tambah Rekam Medis
+    </a>
+
+    <table class="table table-hover table-bordered text-center align-middle">
+
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama Pasien</th>
+          <th>Keluhan</th>
+          <th>Diagnosa</th>
+          <th>Tanggal</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% if (data.length === 0) { %>
+          <tr>
+            <td colspan="6">Tidak ada data</td>
+          </tr>
+        <% } %>
+
+        <% data.forEach((d, i) => { %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td><%= d.nama || '-' %></td>
+          <td><%= d.keluhan %></td>
+          <td><%= d.diagnosa %></td>
+          <td><%= d.tanggal %></td>
+
+          <td>
+
+            <!-- EDIT -->
+            <a href="/rekammedis/edit/<%= d.id %>" 
+               class="btn btn-warning btn-sm btn-custom">
+               Edit
+            </a>
+
+            <!-- HAPUS -->
+            <a href="/rekammedis/hapus/<%= d.id %>" 
+               class="btn btn-danger btn-sm btn-custom"
+               onclick="return confirm('Yakin hapus data?')">
+               Hapus
+            </a>
+
+          </td>
+
+        </tr>
+        <% }) %>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+</body>
+</html>

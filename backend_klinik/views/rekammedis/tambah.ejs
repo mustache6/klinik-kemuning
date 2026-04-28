@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tambah Rekam Medis</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f4f6f9;
+    }
+
+    .card {
+      border-radius: 15px;
+    }
+
+    .form-label {
+      font-weight: 500;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+  <div class="card shadow p-4">
+
+    <h3 class="text-center mb-4">Tambah Rekam Medis</h3>
+
+    <form action="/rekammedis/tambah" method="POST">
+
+      <!-- PILIH PASIEN -->
+      <div class="mb-3">
+        <label class="form-label">Nama Pasien</label>
+        <select name="pasien_id" class="form-control" required>
+          <option value="">-- Pilih Pasien --</option>
+
+          <% pasien.forEach(p => { %>
+            <option value="<%= p.id %>"><%= p.nama %></option>
+          <% }) %>
+
+        </select>
+      </div>
+
+      <!-- KELUHAN -->
+      <div class="mb-3">
+        <label class="form-label">Keluhan</label>
+        <textarea name="keluhan" class="form-control" rows="3" required></textarea>
+      </div>
+
+      <!-- DIAGNOSA -->
+      <div class="mb-3">
+        <label class="form-label">Diagnosa</label>
+        <textarea name="diagnosa" class="form-control" rows="3" required></textarea>
+      </div>
+
+      <!-- TANGGAL -->
+      <div class="mb-3">
+        <label class="form-label">Tanggal</label>
+        <input type="date" name="tanggal" class="form-control" required>
+      </div>
+
+      <!-- BUTTON -->
+      <button type="submit" class="btn btn-warning w-100 text-dark">
+        Simpan Data
+      </button>
+
+      <a href="/rekammedis" class="btn btn-secondary w-100 mt-2">
+        Kembali
+      </a>
+
+    </form>
+
+  </div>
+
+</div>
+
+</body>
+</html>

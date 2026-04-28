@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Rekam Medis</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+  <div class="card shadow p-4">
+
+    <h3 class="text-center mb-4">Edit Rekam Medis</h3>
+
+    <form action="/rekammedis/edit/<%= data.id %>" method="POST">
+
+      <!-- PASIEN -->
+      <div class="mb-3">
+        <label>Pasien</label>
+        <select name="pasien_id" class="form-control">
+
+          <% pasien.forEach(p => { %>
+            <option value="<%= p.id %>" 
+              <%= p.id == data.pasien_id ? 'selected' : '' %>>
+              <%= p.nama %>
+            </option>
+          <% }) %>
+
+        </select>
+      </div>
+
+      <!-- KELUHAN -->
+      <div class="mb-3">
+        <label>Keluhan</label>
+        <textarea name="keluhan" class="form-control"><%= data.keluhan %></textarea>
+      </div>
+
+      <!-- DIAGNOSA -->
+      <div class="mb-3">
+        <label>Diagnosa</label>
+        <textarea name="diagnosa" class="form-control"><%= data.diagnosa %></textarea>
+      </div>
+
+      <!-- TANGGAL -->
+      <div class="mb-3">
+        <label>Tanggal</label>
+        <input type="date" name="tanggal" class="form-control" value="<%= data.tanggal %>">
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">
+        Update
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+</body>
+</html>

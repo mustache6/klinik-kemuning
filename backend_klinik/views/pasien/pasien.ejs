@@ -1,0 +1,21 @@
+<h2 class="text-primary mb-3">Data Pasien</h2>
+<table class="table table-striped table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Nama</th>
+      <th>Alamat</th>
+      <th>No. Telepon</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% pasien.forEach(p => { %>
+      <tr>
+        <td><%= p.id %></td>
+        <td><%= p.nama %></td>
+        <td><%= p.alamat %></td>
+        <td><%= p.telepon %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
